@@ -3,15 +3,7 @@
 #include <unistd.h>
 
 // ₀ ₁ ₂ ₃ ₄ ₅ ₆ ₇ ₈ ₉
-#define VERSION "₁.₀"
-
-//由于暂时缺少原始抓包数据,未能实现
-#define get_lamptime()                                        \
-    printf("×  This is a furture function ,not work yet × "); \
-    printf("\nplease enter ENTER to return menu ");           \
-    getchar();                                                \
-    while (getchar() != '\n')                                 \
-        ;
+#define VERSION "₁.₁"
 
 #define EXIT_BYE()       \
     {                    \
@@ -24,7 +16,7 @@ extern int ping_alive(void);
 extern void get_ip(void);
 extern void shutdowm_projector(void);
 extern int startup_projector(void);
-//extern int get_lamptime(void );
+extern int get_lamptime(void);
 
 void show_menu(void);
 void exit_error(char *);
