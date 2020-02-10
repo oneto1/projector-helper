@@ -8,7 +8,7 @@
 #include <unistd.h>
 
 //官方管理应用通信管理端口
-#define PORT 80
+#define PORT 3629
 
 void handle(int);
 extern void exit_error(char *);
