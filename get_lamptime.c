@@ -7,45 +7,41 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+#include "prase.h"
+#include "log.h"
+
 //官方管理应用通信管理端口
 #define PORT 3629
 
 void handle(int);
-extern void exit_error(char *);
 
 /*
     根据 'ESCVP21 command guide for business projector'所说
     获取灯时的命令为"LAMP?"
     所以我们发送后接受回复就行
 */
-void get_lamptime(void)
+void get_lamptime(struct ip_address *ip_p)
 {
-    char ipbuf[50] = {0};
-
-    printf("please input a ip address :");
-
-    if (scanf("%s", ipbuf) < 0)
-        exit_error("input error ");
 
     //建立TCP连接
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
     if (sockfd < 0)
-        exit_error("socket error ");
+        EXIT_ERROR("socket error ");
 
     //初始化
     struct sockaddr_in addr_in = {
-        .sin_addr.s_addr = inet_addr(ipbuf),
+        .sin_addr.s_addr = inet_addr(ip_p->ip_all),
         .sin_family = AF_INET,
         .sin_port = htons(PORT),
     };
 
     if (connect(sockfd, (struct sockaddr *)&addr_in, sizeof(addr_in)) < 0)
-        exit_error("connect error ");
+        EXIT_ERROR("connect error ");
 
     char cmd[] = "LAMP?";
     if (send(sockfd, cmd, strlen(cmd), 0) < 0)
-        exit_error("send error ");
+        EXIT_ERROR("send error ");
 
     //定时3秒
     signal(SIGALRM, handle);
@@ -56,31 +52,24 @@ void get_lamptime(void)
     {
 
         if (recv(sockfd, buf, sizeof(buf), 0) < 0)
-            exit_error("recv error ");
+            EXIT_ERROR("recv error ");
         else
         {
-            printf("get it!%s : %s", ipbuf, buf);
+            printf("get it!%s : %s", ip_p->ip_all, buf);
             break;
         }
     }
 
     close(sockfd);
 
-    printf("please enter ENTER to return menu ");
+    LOG("Send to %s OK",ip_p->ip_all);
 
-    getchar();
-    while (getchar() == '\n')
-        return;
+    return ;
 }
 
 /*超时处理*/
 void handle(int foo)
 {
-    printf("projector is busy or dead , please try again !");
+    EXIT_ERROR("Projector is busy or dead , please try again !");
 
-    printf("\nplease enter ENTER to return menu ");
-
-    getchar();
-    while (getchar() == '\n')
-        exit(1);
 }

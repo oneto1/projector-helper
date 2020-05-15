@@ -9,9 +9,9 @@ void get_ip(void)
 
     system(cmd);
 
-    printf("please enter ENTER to return menu ");
+    // printf("please enter ENTER to return menu ");
 
-    getchar();
-    while (getchar() == '\n')
-        return;
+    // getchar();
+    // while (getchar() == '\n')
+    //     return;
 }

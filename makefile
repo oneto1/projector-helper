@@ -1,8 +1,10 @@
-main: main.o ping_alive.o get_ip.o shutdowm_projector.o startup_projector.o get_lamptime.o  ping-helper
-	gcc -g -o projector-helper ping_alive.o main.o get_ip.o  shutdowm_projector.o startup_projector.o  get_lamptime.o -fstack-protector -fstack-protector-all
+main: main.o startup_projector.o shutdowm_projector.o prase.o get_ip.o get_lamptime.o
+	gcc -o projector-helper main.o startup_projector.o  shutdowm_projector.o prase.o get_ip.o  get_lamptime.o -fstack-protector -fstack-protector-all
+
+prase.o: prase.c
+	gcc -c prase.c
 
 ping.o: ping.c
-	echo " 发送raw 套接字需要root权限 "
 	sudo gcc -c ping.c
 
 ping-helper: ping.o
