@@ -1,5 +1,8 @@
-main: main.o startup_projector.o shutdowm_projector.o prase.o get_ip.o get_lamptime.o
-	gcc -o projector-helper main.o startup_projector.o  shutdowm_projector.o prase.o get_ip.o  get_lamptime.o -fstack-protector -fstack-protector-all
+OBJ=main.o startup_projector.o shutdowm_projector.o prase.o get_ip.o get_lamptime.o
+CFLAGS= -O -fstack-protector -fstack-protector-all
+
+main: $(OBJ)
+	gcc -o projector-helper $(OBJ) $(CFLAGS)
 
 prase.o: prase.c
 	gcc -c prase.c

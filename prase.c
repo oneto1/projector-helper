@@ -68,7 +68,7 @@ int prase_ip(char * ip,struct ip_address *ip_p){
     
     if( NULL == strstr(ip,"/") ){
         CIDR_addr = 0;
-        //ip_p->ip_nums = 1; 
+    
     }
 
     if(CIDR_addr){
@@ -160,12 +160,9 @@ int prase_ip(char * ip,struct ip_address *ip_p){
 
         ip_p->ip_all = ip_end;
         LOG("%s",ip_end);
-
-//        printf("%s %s\n",ip_p->ip_start,ip_p->ip_end);
-
+        
     }else{
         ip_p->ip_all = ip;
-        //ip_p->ip_end = ip;
     
     }
     

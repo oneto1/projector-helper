@@ -59,22 +59,15 @@ void show_usage()
 }
 
 void run_function(struct hp *hp_p){
-
-        if(hp_p->fun_t.shut_up == 1){
-            shutdowm_projector(&(hp_p->ip_t));
-        }
-    
-        if(hp_p->fun_t.start_up == 1)
-            startup_projector(&(hp_p->ip_t));
-        
-        if(hp_p->fun_t.get_ip == 1){
-              get_ip();
-        }
-          
-        if(hp_p->fun_t.get_time == 1)
-            get_lamptime(&(hp_p->ip_t));
-
-        if(hp_p->fun_t.usage == 1)
+        if(hp_p->fun_t.usage == 1){
             show_usage();
+        }else if(hp_p->fun_t.shut_up == 1){
+            shutdowm_projector(&(hp_p->ip_t));
+        }else if(hp_p->fun_t.start_up == 1){
+            startup_projector(&(hp_p->ip_t));
+        }else if(hp_p->fun_t.get_ip == 1){
+            get_ip();
+        }else if(hp_p->fun_t.get_time == 1)
+            get_lamptime(&(hp_p->ip_t));
 
 }
